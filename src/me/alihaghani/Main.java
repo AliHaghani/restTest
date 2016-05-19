@@ -51,7 +51,7 @@ public class Main {
             final JSONObject transaction = transactions.getJSONObject(i);
             System.out.println("Date: " + transaction.getString("Date"));
             System.out.println("Ledger: " + transaction.getString("Ledger"));
-            System.out.println("Amount: " + transaction.getDouble("Amount"));
+            System.out.println("Amount: $" + transaction.getDouble("Amount"));
             System.out.println("Company: " + transaction.getString("Company"));
             System.out.println("");
             totalCount++;
