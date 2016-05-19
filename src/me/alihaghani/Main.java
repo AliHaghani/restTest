@@ -38,9 +38,13 @@ public class Main {
     }
 
     private static void printCategories(HashMap<String, ArrayList<JSONObject>> categories) {
+
         System.out.println("CATEGORIES");
         System.out.println("");
         for (Map.Entry<String, ArrayList<JSONObject>> entry : categories.entrySet()){
+
+            totalCount = 0;
+            totalBalance = 0.00;       // reset totals for category
 
             if (!entry.getKey().equals("")) {
                 System.out.println("Category Name: " + entry.getKey().trim());
@@ -62,7 +66,7 @@ public class Main {
 
     public static void getData(int page) throws Exception {
         totalCount = 0;
-        totalBalance = 0.00;
+        totalBalance = 0.00;        // reset totals
 
 
         final JSONObject obj = new JSONObject(readUrl(jsonLocation + Integer.toString(page) + ".json"));
@@ -94,6 +98,7 @@ public class Main {
     }
 
     private static void printTransaction(JSONObject transaction) {
+
 
         System.out.println("Date: " + transaction.getString("Date"));
         System.out.println("Ledger: " + transaction.getString("Ledger"));
