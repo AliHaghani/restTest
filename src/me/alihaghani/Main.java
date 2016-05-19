@@ -72,7 +72,7 @@ public class Main {
         final JSONObject obj = new JSONObject(readUrl(jsonLocation + Integer.toString(page) + ".json"));
         final JSONArray transactions = obj.getJSONArray("transactions");
         final int pageLength = transactions.length();
-        HashSet<String> alreadyAdded = new HashSet<String>(); // HashSet to prevent duplicates
+        HashSet<String> alreadyAdded = new HashSet<String>(); // Contains already added transactions
 
         for (int i = 0; i < pageLength; i++) {
             final JSONObject transaction = transactions.getJSONObject(i);
