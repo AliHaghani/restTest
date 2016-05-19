@@ -27,8 +27,8 @@ public class MainTest {
     @org.junit.Test
     public void testGetData2() throws Exception {
         getData(2);
-        assertEquals(7,958.71,totalBalance);    // calculated totalBalance from 2.JSON
-        assertEquals(10, totalCount);           // counted totalCount from 2.JSON
+        assertEquals(7,969.61,totalBalance);    // calculated totalBalance from 2.JSON - excluding duplicates
+        assertEquals(9, totalCount);           // counted totalCount from 2.JSON - excluding duplicates
     }
 
     @org.junit.Test (expected = FileNotFoundException.class)
