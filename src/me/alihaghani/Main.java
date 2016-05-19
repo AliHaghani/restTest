@@ -21,8 +21,8 @@ public class Main {
 
 
 
-    static int totalCount = 0;
-    static double totalBalance = 0.00;
+    static int totalCount;
+    static double totalBalance;
 
     static DecimalFormat df = new DecimalFormat("#.##");
 
@@ -43,6 +43,10 @@ public class Main {
     }
 
     public static void getData(int page) throws Exception {
+        totalCount = 0;
+        totalBalance = 0.00;
+
+
         final JSONObject obj = new JSONObject(readUrl(jsonLocation + Integer.toString(page) + ".json"));
         final JSONArray transactions = obj.getJSONArray("transactions");
         final int pageLength = transactions.length();
