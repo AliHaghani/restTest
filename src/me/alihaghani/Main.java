@@ -49,10 +49,10 @@ public class Main {
 
         for (int i = 0; i < pageLength; i++) {
             final JSONObject transaction = transactions.getJSONObject(i);
-            System.out.println(transaction.getString("Date"));
-            System.out.println(transaction.getString("Ledger"));
-            System.out.println(transaction.getDouble("Amount"));
-            System.out.println(transaction.getString("Company"));
+            System.out.println("Date: " + transaction.getString("Date"));
+            System.out.println("Ledger: " + transaction.getString("Ledger"));
+            System.out.println("Amount: " + transaction.getDouble("Amount"));
+            System.out.println("Company: " + transaction.getString("Company"));
             System.out.println("");
             totalCount++;
             totalBalance += transaction.getDouble("Amount");
