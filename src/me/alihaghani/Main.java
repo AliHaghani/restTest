@@ -3,7 +3,10 @@ package me.alihaghani;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,8 +18,10 @@ public class Main {
     static double totalBalance;
 
     static HashMap<String, ArrayList<JSONObject>> categories = new HashMap<>();
+    static Map<Date, Double> dateSum = new TreeMap<Date, Double>();
 
     static DecimalFormat df = new DecimalFormat("#.##");
+    static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     private static String jsonLocation = "http://resttest.bench.co/transactions/";
 
@@ -31,10 +36,30 @@ public class Main {
         System.out.println("Total count: " + totalCount);
         System.out.println("Page number: " + page);
         System.out.println("");
+
         printCategories(categories);
 
+        System.out.println("");
+
+        printRunningTotal();
 
 
+
+    }
+
+    private static void printRunningTotal() {
+        Set set = dateSum.entrySet();
+        Iterator i = set.iterator();
+        double sumSoFar = 0.00;
+
+
+        System.out.println("Daily Running Totals");
+        while(i.hasNext()) {
+            Map.Entry curr = (Map.Entry)i.next();
+            System.out.print("Date: " + dateFormat.format(curr.getKey()) + " - ");
+            sumSoFar += (double) curr.getValue();
+            System.out.println("Running Total: $" + df.format(sumSoFar));
+        }
     }
 
     private static void printCategories(HashMap<String, ArrayList<JSONObject>> categories) {
@@ -89,11 +114,23 @@ public class Main {
                     categories.get(category).add(transaction);
                 }
 
+                dateHelper(transaction);
+
                 printTransaction(transaction);
 
 
             } else continue; // Go to next item if a duplicate
 
+        }
+    }
+
+    private static void dateHelper(JSONObject transaction) throws ParseException {
+        String dateString = transaction.getString("Date");
+        Date date = dateFormat.parse(dateString);
+        if (dateSum.containsKey(date)) {
+            dateSum.put(date, dateSum.get(date) + transaction.getDouble("Amount"));
+        } else {
+            dateSum.put(date, transaction.getDouble("Amount"));
         }
     }
 
